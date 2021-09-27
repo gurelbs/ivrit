@@ -20,9 +20,9 @@ export async function lyrics(song: string): Promise<any> {
     const songText = await page.$('div[data-lyricid]');
     if (songName || singer || songText) {
       const result = await page.evaluate(() => ({
-          songName: document?.querySelector('.kp-hc h2')?.textContent,
-          singer: document?.querySelector('div[data-attrid="subtitle"]')?.textContent,
-          lyric: document?.querySelector('div[data-lyricid]')?.textContent
+          songName: (document?.querySelector('.kp-hc h2') as HTMLElement ).innerText,
+          singer: (document?.querySelector('div[data-attrid="subtitle"]') as HTMLElement).innerText,
+          lyric: (document?.querySelector('div[data-lyricid]') as HTMLElement).innerText
       }))
       res.push(result)
     }

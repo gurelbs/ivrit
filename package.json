@@ -1,9 +1,9 @@
 {
   "name": "ivrit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "API for Real-time Data in Hebrew.",
   "main": "./lib/index.js",
-  "types": "./lib/index.d.ts", 
+  "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/gurelbs/ivrit#readme",
   "dependencies": {
-    "puppeteer": "latest",
-    "typescript": "next"
+    "puppeteer": "^10.4.0",
+    "typescript": "^4.4.3"
   },
   "devDependencies": {
     "tslint": "^6.1.3"

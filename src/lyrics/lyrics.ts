@@ -4,7 +4,6 @@ interface Song {
   songName:string,
   singer:string,
   lyric:string
-    
 }
 export async function lyrics(song: string): Promise<any> {
   const res: Song[] | any = []
@@ -20,7 +19,7 @@ export async function lyrics(song: string): Promise<any> {
     const singer = await page.$('div[data-attrid="subtitle"]');
     const songText = await page.$('div[data-lyricid]');
     if (songName && singer && songText) {
-      let result = await page.evaluate(() => ({
+      const result = await page.evaluate(() => ({
           songName: document?.querySelector('.kp-hc h2')?.textContent,
           singer: document?.querySelector('div[data-attrid="subtitle"]')?.textContent,
           lyric: document?.querySelector('div[data-lyricid]')?.textContent

@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 const CATCH = new Map();
 export async function lyrics(song: string): Promise<any> {
-  let res:any = []
+  const res:any = []
   const err = `לא מצאתי מילים לשיר ${song}`;
   const url = `https://www.google.com/search?q=${song}%20lyrics&hl=iw`;
   if (CATCH.has(url)) return CATCH.get(url);

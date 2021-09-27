@@ -35,5 +35,5 @@ export async function lyrics(song: string): Promise<any> {
 // song name:document.querySelector(".kp-hc h2").innerText
 // artist name:document.querySelector("div[data-attrid='subtitle']").innerText
 // songtext: document.querySelector('div[data-lyricid]').innerText,
-// translate: evaluate.  click document.querySelector("g-raised-button") 
+// translate: evaluate.  click document.querySelector("g-raised-button")
 // .evalute document.querySelector('div[data-lyricid]').innerText again

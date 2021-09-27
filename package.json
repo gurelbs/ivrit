@@ -1,0 +1,40 @@
+{
+  "name": "ivrit",
+  "version": "0.0.1",
+  "description": "API for Real-time Data in Hebrew.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts", 
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run lint",
+    "lint": "tslint -p tsconfig.json",
+    "build": "tsc -p .",
+    "autoGitDeploy": "git add . && git commit -m 'updated' && git push origin main",
+    "deploy": "npm run build && npm run autoGitDeploy && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gurelbs/ivrit.git"
+  },
+  "keywords": [
+    "ivrit",
+    "hebrew",
+    "language",
+    "real-time data"
+  ],
+  "author": "Gurel Ben Shabat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gurelbs/ivrit/issues"
+  },
+  "homepage": "https://github.com/gurelbs/ivrit#readme",
+  "dependencies": {
+    "puppeteer": "latest",
+    "typescript": "next"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.3"
+  }
+}

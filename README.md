@@ -1,7 +1,7 @@
-<h1 align="center">Welcome to hets 👋</h1>
+<h1 align="center">Welcome to Ivrit 👋</h1>
 <h4><code>* Currently this is just a beta version</code></h4>
 <p>
-  <a href="https://www.npmjs.com/package/hets" target="_blank">
+  <a href="https://www.npmjs.com/package/ivrit" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/hets.svg">
   </a>
   <a href="#" target="_blank">
@@ -14,15 +14,15 @@
 ## Installation
 
 ```sh
-npm i hets
+npm i ivrit
 ```
 ## Import
 
 ```sh
 
-import { news } from "hets";
+import { news } from "ivrit";
 # or 
-const { news } = require("hets");
+const { news } = require("ivrit");
 ```
 ## Usage
 

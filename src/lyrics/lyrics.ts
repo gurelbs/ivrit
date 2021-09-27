@@ -1,7 +1,13 @@
 import puppeteer from 'puppeteer'
 const CATCH = new Map();
+interface Song {
+  songName:string,
+  singer:string,
+  lyric:string
+    
+}
 export async function lyrics(song: string): Promise<any> {
-  const res:any = []
+  const res: Song[] | any = []
   const err = `לא מצאתי מילים לשיר ${song}`;
   const url = `https://www.google.com/search?q=${song}%20lyrics&hl=iw`;
   if (CATCH.has(url)) return CATCH.get(url);
@@ -11,16 +17,15 @@ export async function lyrics(song: string): Promise<any> {
     const page = await context.newPage();
     await page.goto(url);
     const songName = await page.$('.kp-hc h2');
-    const artistName = await page.$('div[data-attrid="subtitle"]');
+    const singer = await page.$('div[data-attrid="subtitle"]');
     const songText = await page.$('div[data-lyricid]');
-    if (songName && artistName && songText) {
-      await page.evaluate(() => {
-        return res.push({
+    if (songName && singer && songText) {
+      let result = await page.evaluate(() => ({
           songName: document?.querySelector('.kp-hc h2')?.textContent,
-          artistName: document?.querySelector('div[data-attrid="subtitle"]')?.textContent,
-          songText: document?.querySelector('div[data-lyricid]')?.textContent
-        })
-      })
+          singer: document?.querySelector('div[data-attrid="subtitle"]')?.textContent,
+          lyric: document?.querySelector('div[data-lyricid]')?.textContent
+      }))
+      res.push(result)
     }
     if (res) {
       CATCH.set(url, res);

@@ -8,7 +8,7 @@ interface Song {
 export async function lyrics(song: string): Promise<any> {
   const res: Song[] | any = []
   const err = `לא מצאתי מילים לשיר ${song}`;
-  const url = `https://www.google.com/search?q=${song}%20lyrics&hl=iw`;
+  const url = `https://www.google.com/search?q=${song}+lyrics&hl=iw`;
   if (CATCH.has(url)) return CATCH.get(url);
   try {
     const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
@@ -18,7 +18,7 @@ export async function lyrics(song: string): Promise<any> {
     const songName = await page.$('.kp-hc h2');
     const singer = await page.$('div[data-attrid="subtitle"]');
     const songText = await page.$('div[data-lyricid]');
-    if (songName && singer && songText) {
+    if (songName || singer || songText) {
       const result = await page.evaluate(() => ({
           songName: document?.querySelector('.kp-hc h2')?.textContent,
           singer: document?.querySelector('div[data-attrid="subtitle"]')?.textContent,
@@ -28,6 +28,7 @@ export async function lyrics(song: string): Promise<any> {
     }
     if (res) {
       CATCH.set(url, res);
+      await page.close();
       await context.close();
       return res;
     }

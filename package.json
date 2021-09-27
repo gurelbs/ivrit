@@ -1,6 +1,6 @@
 {
   "name": "ivrit",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "API for Real-time Data in Hebrew.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

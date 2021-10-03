@@ -1,4 +1,4 @@
 export { getNews as news } from './news/getNews';
 export {quickAnswer} from './quickAnswer/quickAnswer';
-export {elementScraper} from './DOMscrape/elementScraper';
+export {WebPageClone} from './WebPageClone/WebPageClone';
 export {lyrics} from './lyrics/lyrics';

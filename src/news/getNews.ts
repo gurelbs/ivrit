@@ -47,12 +47,14 @@ export async function getNews(term: string | string[], lang: string = 'he'): Pro
         })),
       );
     } else return err;
+    await context.close();
     if (res) {
       CATCH.set(url, res);
-      await context.close();
       return res;
     }
   } catch (error) {
     return error;
   }
 }
+
+// getNews(['ביטקוין','קריפטו','']).then(console.log);

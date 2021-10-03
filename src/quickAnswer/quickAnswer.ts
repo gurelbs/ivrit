@@ -13,10 +13,12 @@ export async function quickAnswer(question:string){
     await page.goto(url);
     const answers = await page.$('div[data-attrid]')
     if(answers) {
-      const result = await page.evaluate( () => [...document
-        .querySelectorAll('div[data-attrid]')]
-        .map(x => x?.textContent)
-        .filter(x => x && x.length > 0))
+      const result = await page.evaluate( () => ({
+        answer: (document?.querySelector('div[data-attrid="wa:/description"] span') as HTMLElement ).innerText,
+        link: (document?.querySelector('.g.mnr-c.g-blk .g a') as HTMLLinkElement).href
+
+      })
+      )
       res.push(result)
     } else return err
     await context.close();
@@ -27,3 +29,5 @@ export async function quickAnswer(question:string){
     return error
   }
 }
+
+quickAnswer('מי האיש הכי עשיר בעולם').then(console.log) 

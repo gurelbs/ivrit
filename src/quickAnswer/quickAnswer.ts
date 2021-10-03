@@ -27,7 +27,6 @@ export async function quickAnswer(question: string): Promise<any> {
         answer: (document?.querySelector('.kp-header') as HTMLElement).innerText.replace('/', ': '),
       }));
       if (kpHeader && !kpHeader.answer.includes(`תוצאת מידע\n`)) {
-        
         res.push(kpHeader);
       }
     }
@@ -148,7 +147,6 @@ export async function quickAnswer(question: string): Promise<any> {
           translateLyrics: (document?.querySelector('.yf') as HTMLElement).innerText,
         }));
       }
-  
       translate ? res.push({ ...result, ...translate }) : res.push(result);
     }
     await context.close();
@@ -159,7 +157,6 @@ export async function quickAnswer(question: string): Promise<any> {
     return err;
   }
 }
-
 // quickAnswer('סרטים של קוונטין טרנטינו').then(data => console.log(data[0].answer.movies[0]));
 // quickAnswer('מה השעה בטורונטו').then(console.log);
 // quickAnswer('מתי השקיעה בירושלים מחרתיים').then(console.log);
@@ -169,5 +166,3 @@ export async function quickAnswer(question: string): Promise<any> {
 // quickAnswer('ביטקוין לדולר').then(console.log);
 // quickAnswer('נלסון מנדלה').then(console.log);
 // quickAnswer(`מי האיש הכי עשיר בעולם?`).then(console.log);
-
-

@@ -29,5 +29,3 @@ export async function quickAnswer(question:string){
     return error
   }
 }
-
-quickAnswer('מי האיש הכי עשיר בעולם').then(console.log) 

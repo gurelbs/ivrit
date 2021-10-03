@@ -20,7 +20,12 @@ npm i ivrit
 
 ```sh
 
-import { news } from "ivrit";
+import { 
+  news, 
+  lyrics,
+  quickAnswer,
+  webPageClone
+} from "ivrit";
 # or 
 const { news } = require("ivrit");
 ```
@@ -45,15 +50,15 @@ news('donald trump','en').then(console.log)
 ### quickAnswer
 ```sh
 
-quickAnswer('מי האיש הגבוה בעולם?').then(console.log) 
-// answers: [
-  {
-    answer:"סולטן קוסן",
-    fullAnswer: "סולטן קוסן, האיש הגבוה בעולם, שמתנשא ל-2.51 מטרים, נפגש בפירמידות במצרים עם ג'יוטי אמג'י, האישה הנמוכה בעולם, שגובהה 62.8 סנטימטרים בלבד. השניים הצטלמו במקום לקמפיין לעידוד התיירות במצרים.",
-    origin: "https://www.ynet.co.il/articles/0,7340,L-5076826,00.html",
-    time: "28 בינו׳ 2018"
-  }
-]
+// quickAnswer('סרטים של קוונטין טרנטינו').then(data => console.log(data[0].answer.movies[0]));
+// quickAnswer('מה השעה בטורונטו').then(console.log);
+// quickAnswer('מתי השקיעה בירושלים מחרתיים').then(console.log);
+// quickAnswer('מה המרחק לירח').then(console.log);
+// quickAnswer('עשרת שפות התכנות המבוקשות ביותר').then(console.log);
+// quickAnswer('כמה זה 1000 פחות 450').then(console.log);
+// quickAnswer('ביטקוין לדולר').then(console.log);
+// quickAnswer('נלסון מנדלה').then(console.log);
+// quickAnswer(`מי האיש הכי עשיר בעולם?`).then(console.log);
 
 ```
 

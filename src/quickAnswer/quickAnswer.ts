@@ -157,12 +157,3 @@ export async function quickAnswer(question: string): Promise<any> {
     return err;
   }
 }
-// quickAnswer('סרטים של קוונטין טרנטינו').then(data => console.log(data[0].answer.movies[0]));
-// quickAnswer('מה השעה בטורונטו').then(console.log);
-// quickAnswer('מתי השקיעה בירושלים מחרתיים').then(console.log);
-// quickAnswer('מה המרחק לירח').then(console.log);
-// quickAnswer('עשרת שפות התכנות המבוקשות ביותר').then(console.log);
-// quickAnswer('כמה זה 1000 פחות 450').then(console.log);
-// quickAnswer('ביטקוין לדולר').then(console.log);
-// quickAnswer('נלסון מנדלה').then(console.log);
-// quickAnswer(`מי האיש הכי עשיר בעולם?`).then(console.log);

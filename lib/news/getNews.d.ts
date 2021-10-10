@@ -5,6 +5,5 @@ export interface News {
     origin: string;
 }
 export declare type Err = undefined | unknown;
-export declare type NewsRes = string | [] | News[] | Err;
-export declare function getNews(term: string | string[], lang?: string): Promise<NewsRes>;
+export declare function getNews(term: string | string[], lang?: string): Promise<any>;
 //# sourceMappingURL=getNews.d.ts.map

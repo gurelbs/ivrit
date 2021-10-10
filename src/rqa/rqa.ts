@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 const CATCH = new Map();
 import {dictionary,Dictionary} from './../dictionary/dictionary'
-
+import {getNews} from './../news/getNews'
 function fixedString(q:string, dic: Dictionary[]){
   for (const {word,replaceWith} of dic){
     const replaceIt = (typeof word === 'string' && q.includes(word)) || q.match(word)
@@ -12,6 +12,12 @@ function fixedString(q:string, dic: Dictionary[]){
   return q
 }
 export async function rqa(question: string): Promise<string | undefined> {
+  if (question.includes('חדשות')) {
+    question = question.replace('חדשות','')
+    const news = await getNews(question);
+    const newsString = Array.from(news).map(({header,time,origin,link}:any) => `${header}\n${origin} - ${time}.\n(<a href="${link}" target="_blank">link</a>)`).join('\n')
+    return newsString
+  }
   const url: string = `https://google.com/search?q=${question}&hl=he`;
   const res: string = '';
   const err: string = 'לא מצאתי תשובה ל' + question;
@@ -231,6 +237,3 @@ export async function rqa(question: string): Promise<string | undefined> {
     return err
   }
 }
-
-
-rqa('מה זה משחק הדיונון').then(console.log);

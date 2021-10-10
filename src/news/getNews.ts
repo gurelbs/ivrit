@@ -1,18 +1,17 @@
 import puppeteer from 'puppeteer';
 
 export interface News {
-  link: string;
+  link: string
   header: string;
   time: string;
   origin: string;
 }
 export type Err = undefined | unknown;
-export type NewsRes = string | [] | News[] | Err;
 
 const CATCH = new Map();
 
-export async function getNews(term: string | string[], lang: string = 'he'): Promise<NewsRes>{
-  let res: NewsRes;
+export async function getNews(term: string | string[], lang: string = 'he'): Promise<any>{
+  let res: any
   const isSearch = `search?q=${term}&hl=${lang}`;
   const isTopStories = `topstories?hl=${lang}`;
   const err = `לא מצאתי חדשות על ${term}`;
@@ -53,7 +52,8 @@ export async function getNews(term: string | string[], lang: string = 'he'): Pro
       return res;
     }
   } catch (error) {
-    return error;
+    console.log(error);
+    return err
   }
 }
 

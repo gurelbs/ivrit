@@ -2,8 +2,8 @@ import puppeteer from 'puppeteer';
 const CATCH = new Map();
 import {dictionary,Dictionary} from './../dictionary/dictionary'
 
-function fixedString(q:string, dictionary: Dictionary[]){
-  for (let {word,replaceWith} of dictionary){
+function fixedString(q:string, dic: Dictionary[]){
+  for (const {word,replaceWith} of dic){
     const replaceIt = (typeof word === 'string' && q.includes(word)) || q.match(word)
     if (replaceIt){
       q = q.replace(word,replaceWith).trim()

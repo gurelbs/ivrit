@@ -25,7 +25,6 @@ export async function rqa(question: string): Promise<string | undefined> {
     }
     try {
       const descriptionDOM = await page.$('div[data-attrid="wa:/description"]');
-      if(content.includes('data-attrid="wa:/description"')) console.log(`content.includes('data-attrid="wa:/description"')`)  
       if (descriptionDOM) {
         const result = await page.evaluate(() => ({
           answer: (document?.querySelector('div[data-attrid="wa:/description"] span') as HTMLElement).innerText,
@@ -209,7 +208,7 @@ export async function rqa(question: string): Promise<string | undefined> {
     } catch (e) {
       console.log(e);
       return err;
-    } 
+    }
     CATCH.set(url, res);
     await context.close();
     await page.close();

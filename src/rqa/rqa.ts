@@ -4,13 +4,11 @@ const CATCH = new Map();
 export async function rqa(question: string): Promise<string | undefined> {
   if (question.includes('איך אומרים')){
     question = question.replace('איך אומרים','תרגם')
-  }  
+  }
   const url: string = `https://google.com/search?q=${question}&hl=he`;
   const res: string = '';
   const err: string = 'לא מצאתי תשובה ל' + question;
   try {
-    console.log(question);
-    
     const browser = await puppeteer.launch({
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
       ignoreDefaultArgs: ['--disable-extensions'],

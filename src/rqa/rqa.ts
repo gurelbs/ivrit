@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer';
 const CATCH = new Map();
 
-export async function quickAnswer(question: string): Promise<any> {
-  const url = `https://google.com/search?q=${question}&hl=he`;
-  const res = [];
-  const err = 'לא מצאתי תשובה ל' + question;
+export async function rqa(question: string): Promise<string> {
+  const url:string = `https://google.com/search?q=${question}&hl=he`;
+  let res:string = ''
+  const err:string = 'לא מצאתי תשובה ל' + question;
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
     ignoreDefaultArgs: ['--disable-extensions'],
@@ -13,7 +13,7 @@ export async function quickAnswer(question: string): Promise<any> {
   const page = await context.newPage();
   try {
     if (CATCH.has(url)) return CATCH.get(url);
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 5000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 10000 });
   } catch (e) {
     console.log(e);
     return err;
@@ -26,7 +26,7 @@ export async function quickAnswer(question: string): Promise<any> {
         link: (document?.querySelector('.g.mnr-c.g-blk .g a') as HTMLLinkElement).href,
       }));
       if (result) {
-        res.push(result);
+        return result.answer
       }
     }
     const kpHeaderDOM = await page.$('.kp-header');
@@ -35,7 +35,7 @@ export async function quickAnswer(question: string): Promise<any> {
         answer: (document?.querySelector('.kp-header') as HTMLElement).innerText.replace('/', ': '),
       }));
       if (kpHeader && !kpHeader.answer.includes(`תוצאת מידע\n`)) {
-        res.push(kpHeader);
+        return kpHeader.answer
       }
     }
 
@@ -49,7 +49,7 @@ export async function quickAnswer(question: string): Promise<any> {
           .slice(0, 8),
       }));
       if (wikiData) {
-        res.push(wikiData);
+        return wikiData.answer.join('\n')
       }
     }
 
@@ -77,7 +77,7 @@ export async function quickAnswer(question: string): Promise<any> {
         }));
       });
       if (details && movies.length > 0) {
-        res.push({
+        console.log({
           answer: {
             details,
             movies,
@@ -97,9 +97,7 @@ export async function quickAnswer(question: string): Promise<any> {
             .slice(0, 3);
         });
         if (details) {
-          res.push({
-            answer: details,
-          });
+          return details.join('\n');
         }
       }
       if (gCardSection) {
@@ -109,9 +107,7 @@ export async function quickAnswer(question: string): Promise<any> {
             .split('\n');
         });
         if (details) {
-          res.push({
-            answer: details,
-          });
+          return details.join('\n');
         }
       }
     }
@@ -123,9 +119,7 @@ export async function quickAnswer(question: string): Promise<any> {
           return (document?.querySelector('w-answer') as HTMLElement)?.innerText;
         });
         if (answer) {
-          res.push({
-            answer,
-          });
+          return answer;
         }
       }
       if (wAnswerDesktop) {
@@ -134,9 +128,7 @@ export async function quickAnswer(question: string): Promise<any> {
             return (document?.querySelector('w-answer-desktop') as HTMLElement)?.innerText;
           });
           if (answer) {
-            res.push({
-              answer,
-            });
+            return answer;
           }
         }
       }
@@ -151,19 +143,26 @@ export async function quickAnswer(question: string): Promise<any> {
         lyric: (document?.querySelector('[data-lyricid]') as HTMLElement).innerText,
       }));
       const translateBtn = await page.$('g-raised-button');
-      let translate;
       if (translateBtn) {
         await page.click('g-raised-button');
         await page.waitForSelector('.yf');
-        translate = await page.evaluate(() => ({
+        const translate = await page.evaluate(() => ({
           translateLyrics: (document?.querySelector('.yf') as HTMLElement).innerText,
         }));
+        if(translate && translate.translateLyrics){
+          return result.songName + '\n' + result.singer + '\n' + result.lyric + '\n' + translate.translateLyrics
+        }
+      } else {
+        if (result){
+          return result.songName + '\n' + result.singer + '\n' + result.lyric
+        }
       }
-      translate ? res.push({ ...result, ...translate }) : res.push(result);
     }
-    await context.close();
     CATCH.set(url, res);
-    return res.length ? res : err;
+    await context.close();
+    await page.close();
+    await browser.close();
+    return res
   } catch (error) {
     console.log(error);
     process.exit(1);

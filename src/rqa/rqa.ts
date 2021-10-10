@@ -13,7 +13,7 @@ export async function rqa(question: string): Promise<string> {
   const page = await context.newPage();
   try {
     if (CATCH.has(url)) return CATCH.get(url);
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 10000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
   } catch (e) {
     console.log(e);
     return err;

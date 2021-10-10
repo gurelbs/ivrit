@@ -16,9 +16,9 @@ export async function rqa(question: string): Promise<string | undefined> {
     question = question.replace('חדשות', '');
     const news = await getNews(question);
     return Array.from(news)
-      .map(({ header, time, origin, link }: any) => `<a href="${link}">${header}\n${origin} - ${time}.</a>`)
+      .map(({ header, time, origin, link }: any) => `<div><a href="${link}">${header}\n${origin} - ${time}.</a></div>`)
       .slice(0, 5)
-      .join('<br/>');
+      .join('\n');
   }
   const url: string = `https://google.com/search?q=${question}&hl=he`;
   const res: string = '';

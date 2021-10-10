@@ -1,17 +1,23 @@
 import puppeteer from 'puppeteer';
 const CATCH = new Map();
 
-export async function rqa(question: string): Promise<string> {
+export async function rqa(question: string): Promise<string | undefined> {
+  if (question.includes('איך אומרים')){
+    question = question.replace('איך אומרים','תרגם')
+  }  
   const url: string = `https://google.com/search?q=${question}&hl=he`;
   const res: string = '';
   const err: string = 'לא מצאתי תשובה ל' + question;
   try {
+    console.log(question);
+    
     const browser = await puppeteer.launch({
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
       ignoreDefaultArgs: ['--disable-extensions'],
     });
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
+    const content = await page.content();
     try {
       if (CATCH.has(url)) return CATCH.get(url);
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
@@ -21,6 +27,7 @@ export async function rqa(question: string): Promise<string> {
     }
     try {
       const descriptionDOM = await page.$('div[data-attrid="wa:/description"]');
+      if(content.includes('data-attrid="wa:/description"')) console.log(`content.includes('data-attrid="wa:/description"')`)  
       if (descriptionDOM) {
         const result = await page.evaluate(() => ({
           answer: (document?.querySelector('div[data-attrid="wa:/description"] span') as HTMLElement).innerText,
@@ -204,16 +211,14 @@ export async function rqa(question: string): Promise<string> {
     } catch (e) {
       console.log(e);
       return err;
-    }
+    } 
     CATCH.set(url, res);
     await context.close();
     await page.close();
     await browser.close();
-    return res;
+    return res ? res : err
   } catch (error) {
     console.log(error);
-    process.exit(1);
+    return err
   }
 }
-
-rqa('איך אומרים באנגלית בוקר טוב').then(console.log);

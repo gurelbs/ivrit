@@ -3,7 +3,7 @@ const CATCH = new Map();
 
 export async function rqa(question: string): Promise<string> {
   const url:string = `https://google.com/search?q=${question}&hl=he`;
-  let res:string = ''
+  const res:string = ''
   const err:string = 'לא מצאתי תשובה ל' + question;
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],

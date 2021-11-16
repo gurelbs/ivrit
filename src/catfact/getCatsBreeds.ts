@@ -5,13 +5,11 @@ export interface CatDetails {
   origin: string;
   image: string;
 }
-export type Err = undefined | unknown;
-
 const CATCH = new Map();
 
 export async function getCatsBreeds(): Promise<any> {
   let res: any;
-  let err: Err;
+  let err = 'No cats found';
   const url = 'https://en.wikipedia.org/wiki/List_of_cat_breeds';
   if (CATCH.has(url)) return CATCH.get(url);
 

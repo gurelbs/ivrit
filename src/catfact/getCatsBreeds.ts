@@ -26,7 +26,12 @@ export async function getCatsBreeds(): Promise<any> {
         [...document.querySelectorAll('.wikitable tbody tr')].map((el) => ({
           breed: el.querySelector('a')?.innerHTML,
           wiki: el.querySelector('a')?.href,
-          origin: el.querySelector('td')?.innerText,
+          origin: el
+            .querySelector('td')
+            ?.innerText.replace(/[\W+|\d]/g, ' ')
+            .split(' ')
+            .filter((el) => el !== '')
+            .join(' '),
           image: el.querySelector('img')?.src,
         })),
       );

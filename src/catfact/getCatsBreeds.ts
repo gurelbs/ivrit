@@ -9,7 +9,7 @@ const CATCH = new Map();
 
 export async function getCatsBreeds(): Promise<any> {
   let res: any;
-  let err = 'No cats found';
+  const err = 'No cats found';
   const url = 'https://en.wikipedia.org/wiki/List_of_cat_breeds';
   if (CATCH.has(url)) return CATCH.get(url);
 

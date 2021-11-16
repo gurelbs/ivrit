@@ -30,7 +30,7 @@ export async function getCatsBreeds(): Promise<any> {
             .querySelector('td')
             ?.innerText.replace(/[\W+|\d]/g, ' ')
             .split(' ')
-            .filter((el) => el !== '')
+            .filter((word) => word !== '')
             .join(' '),
           image: el.querySelector('img')?.src,
         })),

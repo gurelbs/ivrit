@@ -1,14 +1,15 @@
 import puppeteer from 'puppeteer';
 
 export interface CatDetails {
-  breed: string;
-  origin: string;
-  image: string;
+  breed?: string;
+  wiki?: string;
+  origin?: string;
+  image?: string;
 }
 const CATCH = new Map();
 
 export async function getCatsBreeds(): Promise<any> {
-  let res: any;
+  let res: CatDetails[];
   const err = 'No cats found';
   const url = 'https://en.wikipedia.org/wiki/List_of_cat_breeds';
   if (CATCH.has(url)) return CATCH.get(url);
@@ -21,7 +22,7 @@ export async function getCatsBreeds(): Promise<any> {
     const wikitable = await page.$('body .wikitable');
     if (wikitable) {
       await page.waitForSelector('body .wikitable');
-      res = await page.evaluate(() =>
+      const result = await page.evaluate(() =>
         [...document.querySelectorAll('.wikitable tbody tr')].map((el) => ({
           breed: el.querySelector('a')?.innerHTML,
           wiki: el.querySelector('a')?.href,
@@ -29,6 +30,7 @@ export async function getCatsBreeds(): Promise<any> {
           image: el.querySelector('img')?.src,
         })),
       );
+      res = result;
     } else return err;
     await context.close();
     if (res) {

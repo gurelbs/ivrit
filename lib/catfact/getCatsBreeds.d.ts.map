@@ -1,0 +1,1 @@
+{"version":3,"file":"getCatsBreeds.d.ts","sourceRoot":"","sources":["../../src/catfact/getCatsBreeds.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,UAAU;IACzB,KAAK,EAAE,MAAM,CAAC;IACd,MAAM,EAAE,MAAM,CAAC;IACf,KAAK,EAAE,MAAM,CAAC;CACf;AACD,oBAAY,GAAG,GAAG,SAAS,GAAG,OAAO,CAAC;AAItC,wBAAsB,aAAa,IAAI,OAAO,CAAC,GAAG,CAAC,CA+BlD"}

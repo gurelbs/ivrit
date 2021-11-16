@@ -10,7 +10,8 @@ export type Err = undefined | unknown;
 const CATCH = new Map();
 
 export async function getCatsBreeds(): Promise<any> {
-  let res: any, err: Err;
+  let res: any;
+  let err: Err;
   const url = 'https://en.wikipedia.org/wiki/List_of_cat_breeds';
   if (CATCH.has(url)) return CATCH.get(url);
 
